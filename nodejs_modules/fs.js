@@ -47,7 +47,7 @@ fs.appendFileSync('example.txt', '\nAppending one more line!'); */
 
 
 
-
+/* 
 fs.rmdir('./app/mydirectory', (err) => {
     if (err) {
         console.error('Error deleting directory:', err);
@@ -68,7 +68,8 @@ fs.rmdir('./app/mydirectory', (err) => {
 });
 
 
-fs.unlinkSync('example.txt');
+
+fs.unlinkSync('example.txt'); */
 
 
 
@@ -89,3 +90,30 @@ console.log('App removed'); */
 //fs.writeFileSync('./myDirectory/file.txt', 'Some text')
 
 
+
+
+
+// Getting the base name (file name) of a path
+const fileName = path.basename('/path/to/example.txt');
+console.log(fileName);  // Output: 'example.txt'
+
+
+
+
+
+
+
+
+// Getting the directory name from a file path
+const dirName = path.dirname('/path/to/example.txt');
+console.log(dirName);  // Output: '/path/to'
+
+
+
+
+
+
+
+// Getting the file extension from a path
+const fileExtension = path.extname('example.txt');
+console.log(fileExtension);  // Output: '.txt'
