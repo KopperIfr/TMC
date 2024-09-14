@@ -1,0 +1,16 @@
+
+
+express-app /
+|--- node_modules /
+|--- controllers /
+|    |--- userController.js
+|--- models /
+|    |--- User.js
+|--- views /
+|    |--- user.html
+|--- 
+|--- .env
+|--- app.js
+|--- package.json
+|--- package-lock.json
+
