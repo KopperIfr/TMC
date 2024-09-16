@@ -2,15 +2,25 @@
 
 express-app /
 |--- node_modules /
-|--- controllers /
-|    |--- userController.js
-|--- models /
-|    |--- User.js
-|--- views /
-|    |--- user.html
-|--- 
+|--- src/
+|--- |--- controllers/
+|--- |--- |--- postController.js
+|--- |--- |--- userController.js
+|--- |--- database/
+|--- |--- |--- connection.js
+|--- |--- models/
+|--- |--- |--- Post.js
+|--- |--- |--- User.js
+|--- |--- routes/
+|--- |--- |--- middleware.js
+|--- |--- |--- postsRouter.js
+|--- |--- |--- userRouter.js
 |--- .env
 |--- app.js
 |--- package.json
 |--- package-lock.json
+
+
+
+
 
