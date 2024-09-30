@@ -1,6 +1,9 @@
+
+// Importing our User Model..
 const User = require('../models/User.js');
 
 
+// Function that returns a specific user..
 const getUser = async (req, res) => {
     try {
         const user = await User.findById(req.params.user_id);
@@ -17,6 +20,8 @@ const getUser = async (req, res) => {
     }
 }
 
+
+// Function that returns the logged in user..
 const getLoggedInUser = async (req, res) => {
     try {
         const user = await User.findById(req.session.userId);
@@ -33,6 +38,8 @@ const getLoggedInUser = async (req, res) => {
     }
 }
 
+
+// Function that logges in an user..
 const loginUser = async (req, res) => {
     try {
 
@@ -69,6 +76,8 @@ const loginUser = async (req, res) => {
     }
 }
 
+
+// Function that registers an user..
 const registerUser = async (req, res) => {
     try {
         const {username, email, password} = req.body;
@@ -89,6 +98,8 @@ const registerUser = async (req, res) => {
     }
 }
 
+
+// Function that logs out an user..
 const logoutUser = (req, res) => {
     req.session.destroy((err) => {
         if (err) {
@@ -108,6 +119,7 @@ const logoutUser = (req, res) => {
 }
 
 
+// Function that updates users information..
 const updateUser = async (req, res) => {
     try {
         await User.findByIdAndUpdate(req.session.userId);

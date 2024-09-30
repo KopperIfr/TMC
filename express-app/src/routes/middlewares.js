@@ -1,3 +1,6 @@
+// ---  middlewares.js  --- //
+
+// Middleware that checks if there is connection to database
 const connSucceed = (succeed) => {
     return (req, res, next) => {
         if(succeed) return next();
@@ -5,8 +8,9 @@ const connSucceed = (succeed) => {
     }
 }
 
-const isAuthenticated = (req, res, next) => {
-    console.log('Authentification middleware..');
+
+// Middleware that checks that the user is logged in.
+const isLoggedIn = (req, res, next) => {
     if(req.session.userId) {
         next();
     } else {
@@ -16,6 +20,8 @@ const isAuthenticated = (req, res, next) => {
     }
 }
 
+
+// Middleware that checks if the user is already logged in.
 const alreadyLogedIn = (req, res, next) => {
     if(!req.session.userId) {
         return next();
@@ -27,6 +33,6 @@ const alreadyLogedIn = (req, res, next) => {
 
 module.exports = {
     connSucceed,
-    isAuthenticated,
+    isLoggedIn,
     alreadyLogedIn
 }

@@ -1,5 +1,5 @@
 
-// --- router.js --- //
+// --- posts router.js --- //
 
 // Importing Router
 const { Router } = require('express');
