@@ -1,0 +1,16 @@
+
+
+// Middlewares
+// Express-session
+// Cookie-parser
+// Login - Register - systems
+
+
+
+// Passport --> Session management
+// Google auth --> Authentication with Google
+// Nodemailer --> Sending emails
+// Multer --> File management
+// Helmet --> Security
+// Cor --> Path management
+// Striper --> Payment management and integration

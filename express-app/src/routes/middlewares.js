@@ -11,9 +11,12 @@ const connSucceed = (succeed) => {
 
 // Middleware that checks that the user is logged in.
 const isLoggedIn = (req, res, next) => {
+    // Checking if the user has a session created
     if(req.session.userId) {
+        // If yes, we call the next() function
         next();
     } else {
+        // If not, we send an error response
         res.status(403).json({
             error: "You need to be logged in!"
         })
