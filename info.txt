@@ -10,6 +10,9 @@
 // Custom mongoose methods
 // In-built mongoose methods
 
+
+//== LEFT TO DO ==
+
 // Cache
 // Passport --> Session management
 // Google auth --> Authentication with Google
@@ -18,3 +21,26 @@
 // Helmet --> Security
 // Cor --> Path management
 // Striper --> Payment management and integration
+// Web Sockets --> Live conversation
+
+
+
+// npm install 
+express 
+mongoose 
+passport 
+passport-local 
+passport-google-oauth20 
+jsonwebtoken 
+bcrypt 
+nodemailer 
+stripe 
+multer 
+helmet 
+express-session 
+joi 
+cors 
+dotenv 
+express-rate-limit 
+cookie-parser
+
