@@ -33,22 +33,7 @@ app.use(passport.session());
 
 
 // Routes..
-app.post('/login', (req, res, next) => {
-    // Validar los datos con el esquema importado
-    const { error } = schema.validate(req.body);
-    if (error) {
-        // Si hay un error en la validación, devolver un mensaje de error
-        return res.status(400).json({ error: error.details[0].message });
-    }
-
-    // Si la validación es exitosa, proceder con Passport para la autenticación
-    passport.authenticate('local', {
-        successRedirect: '/dashboard',
-        failureRedirect: '/auth/login'
-    })(req, res, next);  // Llamar a passport.authenticate
-});
-
-app.post('/login', passport.authenticate('local', {
+app.post('/login', loginValidateMiddleare, passport.authenticate('local', {
     successRedirect: '/dashboard',
     failureRedirect: '/auth/login'
 }));
