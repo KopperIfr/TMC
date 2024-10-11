@@ -6,7 +6,11 @@
 // Login - Register - systems
 
 
+// MongoDB Advanced
+// Custom mongoose methods
+// In-built mongoose methods
 
+// Cache
 // Passport --> Session management
 // Google auth --> Authentication with Google
 // Nodemailer --> Sending emails

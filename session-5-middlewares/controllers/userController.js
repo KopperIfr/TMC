@@ -2,8 +2,7 @@
 // --- userController.js --- //
 
 import User from "../models/User.js";
-import registerValidation from 
-'../utils/validation/registerSchema.js';
+import registerValidation from '../utils/validation/registerSchema.js';
 import loginValidation from '../utils/validation/loginSchema.js';
 import jwt from 'jsonwebtoken';
 
@@ -24,7 +23,11 @@ const Controller = {
         if(!user) return res.status(400).json({
             message: 'Invalid credentials!'
         })
-        const authToken = jwt.sign(user.id, process.env.JWT_SECRET_KEY);
+
+        const authToken = jwt.sign({id: user.id}, process.env.JWT_SECRET_KEY);
+        console.log(`Auth token: ${authToken}`);
+        const decoded = jwt.verify(authToken, process.env.JWT_SECRET_KEY);
+        console.log(`Decoded directly from const: ${decoded.id}`);
         res.cookie('authToken', JSON.stringify(authToken), {httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
 
         req.session.user = {
@@ -39,7 +42,6 @@ const Controller = {
     },
 
     signUp : async (req, res) => {
-        console.log(req.body);
         const { error, value } = registerValidation.validate(
             req.body, 
             {abortEarly: false}
