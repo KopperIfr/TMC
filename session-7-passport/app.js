@@ -1,7 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 import dotenv from 'dotenv';
-import db from './database/database.js';
+import connectDB from './database/connection.js';
 
 // ==========================
 // This import loads all of our strategies
@@ -9,6 +9,7 @@ import './config/passport/passport.js';
 //
 // ==========================
 dotenv.config();
+connectDB();
 
 const app = express();
 
