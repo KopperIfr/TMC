@@ -4,22 +4,31 @@ import validator from 'validator';
 const UserSchema = new mongoose.Schema({
     name: {
 
+        // Type string required
         type: String,
 
+        // Name required
         required: true,
 
+        // Name will be saved in lowercase
         lowercase: true,
 
+        // Name will be saved in uppercase
         uppercase: true,
 
+        // Name must be unique
         unique: true,
 
+        // Name will be Willson as default
         default: 'Willson',
 
+        // Name cant be changed after being saved
         immutable: true,
 
+        // Name minimum length is 4
         minLength: 4,
 
+        // Name maximym length is 22
         maxLength: 22,
     },
     age: {
