@@ -1,0 +1,22 @@
+|app/
+├── /config
+│   ├── passport.js          # Configuración principal de Passport (carga todas las estrategias)
+│   ├── localStrategy.js     # Estrategia Local (email y contraseña)
+│   ├── googleStrategy.js    # Estrategia de Google OAuth
+│   └── facebookStrategy.js  # Estrategia de Facebook OAuth
+│
+├── /models
+│   └── User.js              # Modelo de Usuario (con campos para Google, Facebook)
+│
+├── /routes
+│   ├── auth.js              # Rutas relacionadas con la autenticación (login, registro, OAuth)
+│   └── dashboard.js         # Rutas protegidas (dashboard, perfil)
+│
+├── /middlewares
+│   └── auth.js              # Middleware para proteger rutas (verifica si el usuario está autenticado)
+│
+│
+├── .env                     # Variables de entorno para claves secretas y API keys
+├── server.js                # Archivo principal del servidor Express
+├── package.json             # Dependencias del proyecto y scripts de npm
+└── README.md   

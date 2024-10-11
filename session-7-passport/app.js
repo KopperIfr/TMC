@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import db from './database/database.js';
 
 // ==========================
-// This import loads all our strategies
+// This import loads all of our strategies
 import './config/passport/passport.js';
 //
 // ==========================
