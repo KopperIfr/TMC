@@ -1,9 +1,33 @@
+
+/**
+ * 
+ * ===================================
+ * IMPORTS
+ * ===================================
+ * 
+ */
+
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
 dotenv.config();
 
 import User from "./User.js";
 import Person from "./Person.js";
+
+
+
+
+
+
+
+
+/**
+ * 
+ * ===================================
+ * CONNECTION FUNCTION TO DATABASE
+ * ===================================
+ * 
+ */
 
 const connectDB = async () => {
     try {
@@ -14,7 +38,23 @@ const connectDB = async () => {
     }
 }
 
-const run = async () => {
+
+
+
+
+
+
+
+
+/**
+ * 
+ * ===================================
+ * MONGOOSE MODEL METHODS
+ * ===================================
+ * 
+ */
+
+async () => {
 
 
 
@@ -30,6 +70,7 @@ const run = async () => {
 
     //=====================   CREATING   ========================
 
+
     // Creating a new user and adding to DB
     await User.create({username: 'Kopper', password: 'SomePassword'});
 
@@ -40,9 +81,8 @@ const run = async () => {
     ])
 
 
-
-
     //=====================   RETRIEVING   ========================
+
 
     // Retrieving a user that matches the conditions
     await User.find({name: 'John', age: 12, street: 'Some street'});
@@ -66,6 +106,7 @@ const run = async () => {
 
 
     //=====================   DELETING   ========================
+
     
     // Find user by id and delete
     await User.findByIdAndDelete(id);
@@ -80,11 +121,6 @@ const run = async () => {
     await User.deleteOne({name: 'John', age: 12});
 
 
-
-
-
-
-
     //=====================   UPDATING   ========================
     // Find user by id and update
     await User.findByIdAndUpdate(id);
@@ -97,14 +133,18 @@ const run = async () => {
 
 }
 
-//run();
-
-connectDB();
 
 
 
+/**
+ * 
+ * ===================================
+ * CUSTOM QUERIES
+ * ===================================
+ * 
+ */
 
-const run2 = async () => {
+async () => {
 
     // Get users where name equals John
     await User.where('name').equals('John');
