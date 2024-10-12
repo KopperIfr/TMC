@@ -18,7 +18,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || 'my_secret',
     resave: false,
     saveUninitialized: false
 }));
@@ -33,8 +33,10 @@ app.use(passport.session());
 
 
 
+
+
 // Routes..
-app.post('/login', loginValidateMiddleare, passport.authenticate('local', {
+app.post('/login', loginValidateMiddleware, passport.authenticate('local', {
     successRedirect: '/dashboard',
     failureRedirect: '/auth/login'
 }));
