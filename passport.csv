@@ -20,3 +20,11 @@
 ├── server.js                # Archivo principal del servidor Express
 ├── package.json             # Dependencias del proyecto y scripts de npm
 └── README.md   
+
+
+
+req.isAuthenticated(): Verifica si el usuario está autenticado.
+req.isUnauthenticated(): Verifica si el usuario no está autenticado.
+req.logIn(user callback): Autentica manualmente a un usuario.
+req.logOut(callback): Cierra la sesión del usuario autenticado.
+req.user: Contiene los datos del usuario autenticado.

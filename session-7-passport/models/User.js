@@ -1,56 +1,57 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
-import validator from 'validator';
+import validation from 'validator';
 
+// Definir el esquema de usuario
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     email: {
         type: String,
         required: true,
-        unique: true,
         validate: {
-            validator: validator.isEmail
+            validator: validation.isEmail,
+            message: 'Provide a valid email address!'
         }
     },
     password: {
         type: String,
-        required: true,
         validate: {
-            validator: (password) => {
-                validator.isStrongPassword(password, {
-                    minLength: 8,
-                    minUppercase: 1,
-                    minSymbols: 1,
-                    minNumbers: 1
-                })
-            }
+            validator: (v) => {
+                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(v);
+            },
+            message: "Password not strong enough!"
         }
     },
     googleId: {
-        type: String
-    },
-    facebookId: {
-        type: String
+        type: String,
+        default: null
     }
 });
 
-// Hashear la contraseña antes de guardarla
-UserSchema.pre('save', async (next) => {
+// Middleware para hashear la contraseña antes de guardarla (para la estrategia local)
+UserSchema.pre('save', async function(next) {
     if (!this.isModified('password')) return next();
-    try {
-        const salt = await bcrypt.genSalt(10);
-        this.password = await bcrypt.hash(this.password, salt);
-        next();
-    } catch (error) {
-        next(err);
-    }
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
 });
 
-UserSchema.methods.comparePassword = async (password) => {
-    return await bcrypt.compare(password, this.password);
-}
+// Método para comparar contraseñas
+UserSchema.methods.comparePassword = async function(enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
+};
+
+// Validación personalizada para asegurar que el password solo sea requerido cuando googleId es null
+UserSchema.path('password').validate(function (value) {
+    // Si el googleId no existe, la contraseña es obligatoria
+    if (!this.googleId && !value) {
+        return false;
+    }
+    return true;
+}, 'Password is required if not using Google OAuth');
 
 export default mongoose.model('User', UserSchema);

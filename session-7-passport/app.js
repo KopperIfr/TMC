@@ -1,52 +1,41 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import passport from 'passport';
+import session from 'express-session';
 import dotenv from 'dotenv';
-import connectDB from './database/connection.js';
+import passportConfig from './config/passport.js';
+import authRoutes from './routes/auth.js';
 
-// ==========================
-// This import loads all of our strategies
-import './config/passport/passport.js';
-//
-// ==========================
 dotenv.config();
-connectDB();
 
 const app = express();
-
-
-// Middlewares..
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+
+// Conectar con MongoDB
+mongoose.connect(process.env.MONGODB_URI)
+.then(() => console.log('MongoDB connected'))
+.catch((err) => console.log('MongoDB connection error:', err));
+
+app.use(express.json());
+app.use(express.urlencoded({extended: true}))
+
+
+// Configurar sesión y Passport
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'my_secret',
+    secret: 'mysecret',
     resave: false,
     saveUninitialized: false
 }));
 
-
-// We need these middleware for passport 
-//to work. Without these, it wont.
-// ==========================
+passportConfig(passport);
 app.use(passport.initialize());
 app.use(passport.session());
-// ==========================
 
+// Rutas
+app.use('/', authRoutes);
 
-
-
-
-// Routes..
-app.post('/login', loginValidateMiddleware, passport.authenticate('local', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/auth/login'
-}));
-
-app.post('/api/register', (req, res) => {
-
-})
-
-
-
-
-// Server listening on..
-app.listen(3000, () => {console.log('Listening on port 3000..')})
+// Iniciar el servidor
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
