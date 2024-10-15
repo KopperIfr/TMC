@@ -27,6 +27,9 @@ app.use(session({
     saveUninitialized: false
 }));
 
+
+import passportConfig from './config/passport.js';
+
 passportConfig(passport);
 app.use(passport.initialize());
 app.use(passport.session());
@@ -39,3 +42,20 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

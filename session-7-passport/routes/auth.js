@@ -82,7 +82,7 @@ router.post(
                 if (err) return res.status(500).json({ message: 'Login failed' });
                 res.status(200).json({ message: 'Login successful', user });
             });
-            
+
         })(req, res, next);
 });
 
@@ -108,12 +108,14 @@ router.get(
  *  ===========================
  */
 router.get('/google/redirect-url', 
-    passport.authenticate('google'), (req, res) => {
-    res.status(200).json({
-        message: 'User logged in with Google',
-        user: req.user
-    })
-});
+    passport.authenticate('google'), 
+    (req, res) => {
+        res.status(200).json({
+            message: 'User logged in with Google',
+            user: req.user
+        })
+    }
+);
 
 
 

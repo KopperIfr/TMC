@@ -5,10 +5,11 @@ import localStrategy from './localStrategy.js';
 import googleStrategy from './googleStrategy.js';
 
 export default function(passport) {
-    // Estrategia local (email y contraseña)
+
+    // Local Strategy..
     localStrategy(passport, User, LocalStrategy);
 
-    // Estrategia de Google OAuth
+    // Google OAuth Strategy..
     googleStrategy(passport, User, GoogleStrategy);
 
     passport.serializeUser((user, done) => {
