@@ -1,0 +1,2 @@
+Some text
+ Append a new lineA new line was appendedA new line was appended

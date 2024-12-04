@@ -10,18 +10,21 @@
 // Custom mongoose methods
 // In-built mongoose methods
 
+// Passport --> Session management
+// Google auth --> Authentication with Google
+
 
 //== LEFT TO DO ==
 
-// Cache
-// Passport --> Session management
-// Google auth --> Authentication with Google
 // Nodemailer --> Sending emails
-// Multer --> File management
 // Helmet --> Security
-// Cor --> Path management
 // Striper --> Payment management and integration
+// Cache
+
+
 // Web Sockets --> Live conversation
+// Multer --> File management
+// Cor --> Path management
 
 
 

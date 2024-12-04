@@ -1,47 +1,78 @@
-// --- app.js --- //
+// 1. Imports..
+import express from 'express';
+import dotenv from 'dotenv';
+import users from './database/users.js';
 
-import express from "express";
-
-import dotenv from "dotenv";
+// Initializing vars..
 dotenv.config();
 const PORT = process.env.PORT || 3000;
-
-// Mock users database..
-let users = [{id: 2837,username: 'john',email: 'john@gmail.com',password: 123}]
-
 const app = express();
 
-app.use(express.json());
+// Requests..
+app.get('/home/:id', (req, res) => {
 
-app.get("/get-users", (req, res) => {
-    res.status(200).json({message: 'Here are all the users!',users})
-});
+    // 1. Url
+    const url = req.url;
 
-app.post('/add-user', (req, res) => {
-    const { id, username, email, password } = req.body;
-    const newUser = {id,username,email,password}
-    users.push(newUser);
-    res.status(200).json({message: 'New user added!',users})
-});
+    // 2. Data
+    const data = req.body;
+    const { username, password } = req.body;
 
-app.put('/update-user/:id', (req, res) => {
-    const id = req.params.id;
-    const {username} = req.body;
-    users.find((user) => {if(user.id == id) user.username = username});
-    res.status(200).json({message: 'User updated successfully!',users})
-});
 
-app.delete('/delete-user/:id', (req, res) => {
-    const id = req.params.id;
-    const newUsers = users.filter((user) => {
-        if(user.id != id) return user;
+    // 3. Paramaters
+    const { id } = req.params;
+
+
+    // 4. Query
+    const { query } = req.query;
+
+
+    // 5. Sessions
+    const { user } = req.session;
+
+    // 6. Cookies
+    const shoppingCart = req.cookies.shoppingCart;
+
+
+    // 7. Method
+    const method = req.method;
+
+
+    res.status(200).json({
+        user
     })
-    users = newUsers;
-    res.status(200).json({message: 'User deleted successfully!',users})
+
+
+
+});
+
+app.post('/search', (req, res) => {
+
+    const { name } = req.query;
+
+    const person = users.findByName(name);
+
+    return res.json({
+        person
+    });
+
+})
+
+
+app.get('/users/:id/:username/:email', (req, res) => {
+    const { id, username, email } = req.params;
+    const user = users.findByEmailAndId(email, id);
+    return res.json({
+        user
+    })
+})
+
+
+app.get('/about', (req, res) => {
+    return res.send('About');
 });
 
 
-// Server listening..
 app.listen(PORT, () => {
-    console.log("Server listening on port:", PORT);
+    console.log(`Server listening to port: ${PORT}`);
 });

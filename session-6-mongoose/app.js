@@ -72,12 +72,12 @@ async () => {
 
 
     // Creating a new user and adding to DB
-    await User.create({username: 'Kopper', password: 'SomePassword'});
+    await User.create({username: 'Kopper', email: 'john@gmail.com', password: 'SomePassword', age:22});
 
     // Creating many users and adding to DB
     await User.insertMany([
-        {name: 'John', age: 2},
-        {name: 'Daisy', age: 98}
+        {username: 'John',email: 'john@gmail.com', password: 'SomePassword', age: 2},
+        {username: 'John',email: 'john@gmail.com', password: 'SomePassword', age: 2}
     ])
 
 
@@ -123,7 +123,9 @@ async () => {
 
     //=====================   UPDATING   ========================
     // Find user by id and update
-    await User.findByIdAndUpdate(id);
+    await User.findByIdAndUpdate(id, {
+        username: 'Daisy'
+    });
 
     // Find user and update
     await User.findOneAndUpdate({name: 'John', age: 12});
@@ -147,7 +149,7 @@ async () => {
 async () => {
 
     // Get users where name equals John
-    await User.where('name').equals('John');
+    await User.where('id').equals(287262);
 
     // Get users where age is greater than 12
     await User.where('age').gt(12);
@@ -166,7 +168,7 @@ async () => {
     await User.where('age').gt(12).where('name').equals('John');
 
     // Get users where name equals John with a limit of 2
-    await User.where('name').equals('John').limit(2);
+    await User.where('name').equals('John').limit(1);
 
     // Get users name and age where name equals John with a limit of 2
     await User.where('name').equals('John').limit(2).select('name age');
@@ -181,6 +183,8 @@ async () => {
 
 
     const person = await Person.findByName('John');
+    const arthuro = await Person.findArthuro();
+    arthuro.sayHello();
     console.log(person.namedEmail);
     // Output: Name, John and email, john@gmail.com
 }

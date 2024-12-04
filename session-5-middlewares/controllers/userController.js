@@ -100,3 +100,51 @@ const Controller = {
 }
 
 export default Controller;
+
+
+
+
+
+
+signUp : async (req, res) => {
+
+    const { username, email, password } = req.body;
+
+    try {
+        const user = await User.create({
+            username: username, 
+            email: email,
+            password: password
+        });
+
+        res.status(200).json({
+            message: 'Signed up successfully!',
+            user: user
+        });
+
+    } catch (error) {
+
+        // Verifica si el error es de validación
+        if (error.name === 'ValidationError') {
+            const errorMessages = Object.values(error.errors).map(err => err.message);
+            return res.status(400).json({
+                message: 'User creation failed due to validation errors!',
+                errors: errorMessages
+            });
+        }
+
+        // Verifica si el error es por duplicado de llave única
+        if (error.code === 11000) {
+            return res.status(409).json({ 
+                error: 'Username or email already exists'
+            });
+        }
+
+        // Cualquier otro error
+        res.status(500).json({
+            message: 'User creation failed!',
+            error: error.message
+        });
+
+    }
+}

@@ -17,7 +17,6 @@ export default (passport, User, GoogleStrategy) => {
                 });
                 await user.save();
             }
-            
             return done(null, user);
         } catch (err) {
             return done(err, null);

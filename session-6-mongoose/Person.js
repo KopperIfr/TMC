@@ -14,10 +14,14 @@ PersonSchema.statics.findByName = function(name) {
     return this.where('name').equals(name);
 }
 
-PersonSchema.virtual('namedEmail').get( function() {
-    return `Name, ${this.name} and email, ${this.email}`;
-})
+PersonSchema.statics.findArthuro = function() {
+    return this.where('name').equals('Arthuro');
+}
 
+
+PersonSchema.pre('save', function(next) {
+    
+});
 
 PersonSchema.pre('save', function(next){
     console.log('This middleware is called before data is saved');
