@@ -23,7 +23,7 @@ let mailOptions = {
 };
 
 
-const verifyAccountEmail = {
+const verifyAccountEmailOptions = {
     from: 'arthuroifrim2000@gmail.com',
     to: 'ifrim.bussiness@gmail.com', 
     subject: 'Email Verification', 
@@ -42,23 +42,7 @@ const verifyAccountEmail = {
 };
 
 export {
-    verifyAccountEmail,
+    verifyAccountEmailOptions,
     mailOptions,
     transporter
 } 
-
-
-
-
-
-
-// app.js
-import { transporter, verifyAccountEmail } from "./sendEmail.js";
-
-transporter.sendMail(verifyAccountEmail, (error, info) => {
-    if (error) {
-        return console.log(`Error: ${error}`);
-    }
-    console.log(`Email sent: ${info.response}`);
-});
-

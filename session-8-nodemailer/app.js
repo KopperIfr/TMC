@@ -1,6 +1,6 @@
-import { transporter, verifyAccountEmail } from "./sendEmail.js";
+import { transporter, verifyAccountEmailOptions } from "./sendEmail.js";
 
-transporter.sendMail(verifyAccountEmail, (error, info) => {
+transporter.sendMail(verifyAccountEmailOptions, (error, info) => {
     if (error) {
         return console.log(`Error: ${error}`);
     }

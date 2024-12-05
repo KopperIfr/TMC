@@ -36,7 +36,7 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ message: messages });
         }
 
-        res.status(500).json({ message: 'Server error' });
+        res.status(500).json({ message: 'Internal Server error' });
 
     }
 });
@@ -66,12 +66,7 @@ router.get('/dashboard', (req, res) => {
  *  Signing in a user locally..
  *  ===========================
  */
-router.post(
-
-    '/login', 
-    middleware.isNotAuthenticated, 
-    (req, res, next) => {
-
+router.post('/login', (req, res, next) => {
         passport.authenticate('local', (err, user, info) => {
 
             if (err) return res.status(500).json({ message: 'Server error' });
@@ -95,7 +90,6 @@ router.post(
  */
 router.get(
     '/google', 
-    middleware.isNotAuthenticated, 
     passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 
@@ -108,8 +102,7 @@ router.get(
  *  ===========================
  */
 router.get('/google/redirect-url', 
-    passport.authenticate('google'), 
-    (req, res) => {
+    passport.authenticate('google'), (req, res) => {
         res.status(200).json({
             message: 'User logged in with Google',
             user: req.user

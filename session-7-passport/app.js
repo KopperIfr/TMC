@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import passportConfig from './config/passport.js';
 import authRoutes from './routes/auth.js';
 
+
 dotenv.config();
 
 const app = express();
@@ -16,20 +17,14 @@ mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log('MongoDB connected'))
 .catch((err) => console.log('MongoDB connection error:', err));
 
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
-
-
-// Configurar sesión y Passport
 app.use(session({
     secret: 'mysecret',
     resave: false,
     saveUninitialized: false
 }));
-
-
-import passportConfig from './config/passport.js';
-
 passportConfig(passport);
 app.use(passport.initialize());
 app.use(passport.session());

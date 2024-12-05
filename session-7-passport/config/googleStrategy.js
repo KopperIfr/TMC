@@ -2,7 +2,7 @@ export default (passport, User, GoogleStrategy) => {
     passport.use('google', new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: 'http://localhost:3000/google/redirect-url'
+        callbackURL: 'http://localhost:8628/google/redirect-url'
     },
     async (accessToken, refreshToken, profile, done) => {
         try {

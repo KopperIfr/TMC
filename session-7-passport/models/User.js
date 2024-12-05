@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import validation from 'validator';
 
-// Definir el esquema de usuario
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -32,7 +31,7 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
-// Middleware para hashear la contraseña antes de guardarla (para la estrategia local)
+// Middleware to hash the password before saving it ( local strategy )
 UserSchema.pre('save', async function(next) {
     if (!this.isModified('password')) return next();
     const salt = await bcrypt.genSalt(10);
@@ -40,15 +39,15 @@ UserSchema.pre('save', async function(next) {
     next();
 });
 
-// Método para comparar contraseñas
+// Method to compare passwords..
 UserSchema.methods.comparePassword = async function(enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// Validación personalizada para asegurar que el password solo sea requerido cuando googleId es null
-UserSchema.path('password').validate(function (value) {
-    // Si el googleId no existe, la contraseña es obligatoria
-    if (!this.googleId && !value) {
+// Custom validation to ensure that password is only required when googleId is null
+UserSchema.path('password').validate(function (password){
+    // If googleId doesnt exist, password is required
+    if (!this.googleId && !password) {
         return false;
     }
     return true;
